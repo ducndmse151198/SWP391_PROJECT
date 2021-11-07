@@ -5,16 +5,15 @@
 **Techs:** JSP, Servlet (MVC2 model), SQL Server, Netbeans, Trello, JQuery, Firebase, Authentication integration (Google RestAPI)
 
 **Roles Tasks:**
-
-    * Huỳnh Anh Khoa: back-end
-    * Nguyễn Anh Thịnh: back-end
-    * Trần Chí Hiếu: back-end
-    * Bùi Đức Uy Dũng: UX/UI Designer
-    * Nguyễn Dương Minh Đức: front-end
+* Huỳnh Anh Khoa: back-end
+* Nguyễn Anh Thịnh: back-end
+* Trần Chí Hiếu: back-end
+* Bùi Đức Uy Dũng: UX/UI Designer
+* Nguyễn Dương Minh Đức: front-end
 
 System core:
-    * Realtime notification using firebase realtime database
-    * Statistic using GoogleChart for showing pieces of data
+* Realtime notification using firebase realtime database
+* Statistic using GoogleChart for showing pieces of data
 
 System has three roles:
 
