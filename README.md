@@ -4,7 +4,8 @@
 
 **Techs:** JSP, Servlet (MVC2 model), SQL Server, Netbeans, Trello, JQuery, Firebase, Authentication integration (Google RestAPI)
 
-* **Roles Tasks:**
+**Roles Tasks:**
+
     * Huỳnh Anh Khoa: back-end
     * Nguyễn Anh Thịnh: back-end
     * Trần Chí Hiếu: back-end
