@@ -116,6 +116,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 statusName = list.get(i - 1).getStatusName();
                                 for (String device : deviceName) {
                                     if (device.toUpperCase().contains(search.toUpperCase())) {
+
                                         listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                     }
                                 }
@@ -129,6 +130,7 @@ public class SearchUserFeedbackController extends HttpServlet {
                                 statusName = list.get(i - 1).getStatusName();
                                 for (String device : deviceName) {
                                     if (device.toUpperCase().contains(search.toUpperCase())) {
+
                                         listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
                                     }
                                 }
@@ -169,6 +171,91 @@ public class SearchUserFeedbackController extends HttpServlet {
                     Collections.reverse(withoutDuplicates);
                     if (!withoutDuplicates.isEmpty()) {
                         request.setAttribute("FEEDBACKID_FROM_SEARCH", withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId());
+                    } else {
+                        list = dao.getListFeedbackSearchForUser2(userID);
+                        deviceName = new ArrayList<String>();
+                        deviceNameArray = null;
+                        locationArray = null;
+                        imageArray = null;
+//                    List<String> imageList = new ArrayList<String>();
+
+                        listAll = new ArrayList<>();
+
+                        feedbackId = "";
+                        date = "";
+                        statusId = "";
+                        statusName = "";
+                        for (int i = 0; i < list.size() + 1; i++) {
+                            if (i == 0) {
+                                deviceNameArray = list.get(i).getDeviceName();
+                                deviceName.add(list.get(i).getDeviceName());
+                                locationArray = list.get(i).getLocation();
+                                imageArray = list.get(i).getImageFirebase();
+//                            imageList.add(list.get(i).getImage());
+
+                            } else {
+                                //optimize code at final sprint
+                                if (i == list.size()) {
+                                    feedbackId = list.get(i - 1).getFeedbackId();
+                                    date = list.get(i - 1).getDate();
+                                    statusId = list.get(i - 1).getStatusId();
+                                    statusName = list.get(i - 1).getStatusName();
+                                    for (String device : deviceName) {
+                                        if (device.toUpperCase().contains(search.toUpperCase())) {
+                                            listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
+                                        }
+                                    }
+
+                                    break;
+                                }
+                                if (!list.get(i).getFeedbackId().equals(list.get(i - 1).getFeedbackId())) {
+                                    feedbackId = list.get(i - 1).getFeedbackId();
+                                    date = list.get(i - 1).getDate();
+                                    statusId = list.get(i - 1).getStatusId();
+                                    statusName = list.get(i - 1).getStatusName();
+                                    for (String device : deviceName) {
+                                        if (device.toUpperCase().contains(search.toUpperCase())) {
+                                            listAll.add(new UserHistoryDTO(feedbackId, date, "", deviceNameArray, locationArray, statusName, statusId, imageArray));
+                                        }
+                                    }
+                                    deviceNameArray = "";
+                                    locationArray = "";
+                                    imageArray = "";
+                                    deviceName = new ArrayList<String>();
+//                                imageList = new ArrayList<String>();
+                                    deviceName.add(list.get(i).getDeviceName());
+                                    deviceNameArray = list.get(i).getDeviceName();
+                                    locationArray = list.get(i).getLocation();
+                                    imageArray = list.get(i).getImageFirebase();
+//                                imageList.add(list.get(i).getImage());
+
+                                } else {
+                                    deviceName.add(list.get(i).getDeviceName());
+                                    deviceNameArray = deviceNameArray.concat(", ");
+                                    deviceNameArray = deviceNameArray.concat(list.get(i).getDeviceName());
+                                    locationArray = locationArray.concat(", ");
+                                    locationArray = locationArray.concat(list.get(i).getLocation());
+                                    imageArray = imageArray.concat(";");
+                                    imageArray = imageArray.concat(list.get(i).getImageFirebase());
+//                                imageList.add(list.get(i).getImage());
+                                }
+                            }
+                        }
+                        historySet = new TreeSet<UserHistoryDTO>();
+                        for (UserHistoryDTO history : listAll) {
+                            if (all_flag) {
+                                if (historySet.size() == 10) {
+                                    all_flag = false;
+                                } else {
+                                    historySet.add(history);
+                                }
+                            }
+                        }
+                        withoutDuplicates = new ArrayList<UserHistoryDTO>(historySet);
+                        Collections.reverse(withoutDuplicates);
+                        if (!withoutDuplicates.isEmpty()) {
+                            request.setAttribute("FEEDBACKID_FROM_SEARCH", withoutDuplicates.get(withoutDuplicates.size() - 1).getFeedbackId());
+                        }
                     }
                     session.setAttribute("HISTORY_ALL", withoutDuplicates);
                     request.setAttribute("SEARCH", search);

@@ -11,6 +11,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="https://cdn.discordapp.com/attachments/770804043794350100/888843339439407104/toolkit.png"/>
         <title>FPT facilities feedback management</title>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" />
